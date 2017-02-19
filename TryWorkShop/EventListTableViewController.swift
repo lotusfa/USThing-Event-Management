@@ -7,7 +7,7 @@
 //
 
 import UIKit
-//import SKYKit
+import SKYKit
 
 class EventListTableViewController: UITableViewController {
 
@@ -19,6 +19,8 @@ class EventListTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        //signUp()
+        login()
         getEventList()
     
     }
@@ -49,8 +51,32 @@ class EventListTableViewController: UITableViewController {
         return cell
     }
     
-   /* func getEventList(){
-        let query = SKYQuery(recordType: "todo", predicate: nil)
+    func signUp(){
+        SKYContainer.default().signup(withUsername: "kelvin", password: "1234") { (user, error) in
+            if error != nil {
+                print ("error signing up user: \(error)")
+                return
+            }
+            
+            print ("sign up successful")
+            // do something else
+        }
+    }
+    
+    func login(){
+        SKYContainer.default().login(withUsername: "kelvin", password: "1234") { (user, error) in
+            if error != nil {
+                print ("error loggin user in \(error)")
+                return
+            }
+            
+            print ("login successful")
+            // do something else
+        }
+    }
+    
+    func getEventList(){
+        let query = SKYQuery(recordType: "event", predicate: nil)
         let sortDescriptor = NSSortDescriptor(key: "order", ascending: true)
         query?.sortDescriptors = [sortDescriptor]
         
@@ -62,10 +88,10 @@ class EventListTableViewController: UITableViewController {
             
             print ("Received \(results?.count) todos.")
             for todo in results as! [SKYRecord] {
-                print ("Got a todo \(todo["title"])")
+                print ("Got a todo \(todo["name"])")
             }
         }
-    }*/
+    }
 
     /*
     // Override to support conditional editing of the table view.
