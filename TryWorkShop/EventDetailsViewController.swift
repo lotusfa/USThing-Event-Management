@@ -9,14 +9,37 @@
 import UIKit
 
 class EventDetailsViewController: UIViewController {
+    var locations : String?
+    var images = UIImage(named: "hkust")
+    var names : String?
+    var dates : String?
+    var descriptions : String?
 
     @IBOutlet weak var eventDescription: UITextView!
+    @IBOutlet weak var photo: UIImageView!
+    @IBOutlet weak var name: UILabel!
+    @IBOutlet weak var fee: UILabel!
+    @IBOutlet weak var date: UILabel!
+    @IBOutlet weak var location: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        eventDescription.text = "Development of Swift started on July 2010 by Chris Lattner, with the eventual collaboration of many other programmers at Apple.Development of Swift started on July 2010 by Chris Lattner, with the eventual collaboration of many other programmers at Apple. Development of Swift started on July 2010 by Chris Lattner, with the eventual collaboration of many other programmers at Apple. Development of Swift started on July 2010 by Chris Lattner, with the eventual collaboration of many other programmers at Apple. Development of Swift started on July 2010 by Chris Lattner, with the eventual collaboration of many other programmers at Apple. Development of Swift started on July 2010 by Chris Lattner, with the eventual collaboration of many other programmers at Apple. Development of Swift started on July 2010 by Chris Lattner, with the eventual collaboration of many other programmers at Apple. Development of Swift started on July 2010 by Chris Lattner, with the eventual collaboration of many other programmers at Apple. Development of Swift started on July 2010 by Chris Lattner, with the eventual collaboration of many other programmers at Apple. Development of Swift started on July 2010 by Chris Lattner, with the eventual collaboration of many other programmers at Apple. Development of Swift started on July 2010 by Chris Lattner, with the eventual collaboration of many other programmers at Apple. Development of Swift started on July 2010 by Chris Lattner, with the eventual collaboration of many other programmers at Apple. Development of Swift started on July 2010 by Chris Lattner, with the eventual collaboration of many other programmers at Apple. Development of Swift started on July 2010 by Chris Lattner, with the eventual collaboration of many other programmers at Apple. Development of Swift started on July 2010 by Chris Lattner, with the eventual collaboration of many other programmers at Apple. Development of Swift started on July 2010 by Chris Lattner, with the eventual collaboration of many other programmers at Apple. Development of Swift started on July 2010 by Chris Lattner, with the eventual collaboration of many other programmers at Apple. Development of Swift started on July 2010 by Chris Lattner, with the eventual collaboration of many other programmers at Apple. Development of Swift started on July 2010 by Chris Lattner, with the eventual collaboration of many other programmers at Apple. Development of Swift started on July 2010 by Chris Lattner, with the eventual collaboration of many other programmers at Apple. Development of Swift started on July 2010 by Chris Lattner, with the eventual collaboration of many other programmers at Apple. Development of Swift started on July 2010 by Chris Lattner, with the eventual collaboration of many other programmers at Apple. Development of Swift started on July 2010 by Chris Lattner, with the eventual collaboration of many other programmers at Apple. Development of Swift started on July 2010 by Chris Lattner, with the eventual collaboration of many other programmers at Apple. Development of Swift started on July 2010 by Chris Lattner, with the eventual collaboration of many other programmers at Apple. "
+        
+        photo.image = images
+        name.text = names
+        fee.text = "$1,000"
+        date.text = dates
+        location.text = locations
+        eventDescription.text = descriptions
+        
+        print("\(name.text)")
+        print("\(date.text)")
+        print("\(location.text)")
+        print("\(eventDescription.text)")
+        
+        
     }
 
     override func didReceiveMemoryWarning() {

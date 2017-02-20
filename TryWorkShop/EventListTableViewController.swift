@@ -11,6 +11,19 @@ import SKYKit
 
 class EventListTableViewController: UITableViewController {
 
+    var locations = ["LTA","LTB","LTC","LTAD","LTE","LTA","LTB","LTC","LTAD","LTE"]
+    var images = [UIImage(named: "hkust")]
+    var names = [String]()
+    var dates = [String]()
+    var descriptions = [String]()
+
+    //for storing selected cell data
+    var location : String = ""
+    var image = UIImage(named: "hkust")
+    var name : String = ""
+    var date : String = ""
+    var descriptionForNextPage: String = ""
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -19,9 +32,11 @@ class EventListTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        
         //signUp()
+
         login()
-        getEventList()
+        getEvent()
     
     }
 
@@ -39,14 +54,18 @@ class EventListTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 1 //shld be num of events in database
+        return names.count //shld be num of events in database
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "EventItem", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "EventItem", for: indexPath) as! EventListTableViewCell
 
         // Configure the cell...
+        cell.photo.image = images[0]
+        cell.name.text = names[indexPath.row]
+        cell.date.text = dates[indexPath.row]
+        cell.location.text = locations[indexPath.row]
 
         return cell
     }
@@ -74,24 +93,53 @@ class EventListTableViewController: UITableViewController {
             // do something else
         }
     }
+
     
-    func getEventList(){
-        let query = SKYQuery(recordType: "event", predicate: nil)
-        let sortDescriptor = NSSortDescriptor(key: "order", ascending: true)
-        query?.sortDescriptors = [sortDescriptor]
+    func getEvent() {
         
-        SKYContainer.default().privateCloudDatabase.perform(query) { (results, error) in
+        print ("getting event")
+        let query = SKYQuery(recordType: "event", predicate: nil)
+        
+        SKYContainer.default().publicCloudDatabase.perform(query) { (results, error) in
             if error != nil {
-                print ("error querying todos: \(error)")
+                print ("error querying events: \(error)")
                 return
             }
             
-            print ("Received \(results?.count) todos.")
-            for todo in results as! [SKYRecord] {
-                print ("Got a todo \(todo["name"])")
+            print ("Received \(results?.count) events.")
+            
+            for event in results as! [SKYRecord] {
+                
+                /*
+                let beginTime = event.object(forKey: "beginTime")
+                let endTime = (event["endTime"])
+                let appendString = "\(beginTime) \(endTime)"
+                print("print(appendString):")
+                print(appendString)
+                */
+                
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateStyle = DateFormatter.Style.medium
+                let string1 = dateFormatter.string(from: (event["beginTime"] as! Date))
+                let string2 = dateFormatter.string(from: (event["endTime"] as! Date))
+                let string3 = " - "
+                let appendString = "\(string1) \(string3) \(string2)"
+                
+                self.names.append(event["name"] as! String)
+                self.dates.append(appendString)
+                self.descriptions.append(event["description"] as! String)
+                
+                print ("Name: \(event["name"])")
+                //print ("Begin Time: \(event["beginTime"])")
+                //print ("End Time: \(event["endTime"])")
+                //print ("Got a event \(event["description"])")
             }
+            self.tableView.reloadData()
         }
+        
+        
     }
+
 
     /*
     // Override to support conditional editing of the table view.
@@ -101,7 +149,7 @@ class EventListTableViewController: UITableViewController {
     }
     */
 
-    /*
+    /*string2	String	""
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
@@ -128,14 +176,24 @@ class EventListTableViewController: UITableViewController {
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        let vc = segue.destination as! EventDetailsViewController
+        
+        let indexPath : NSIndexPath = self.tableView.indexPathForSelectedRow! as NSIndexPath
+
+        vc.images = images[0]
+        vc.names = names[indexPath.row]
+        vc.dates = dates[indexPath.row]
+        vc.locations = locations[indexPath.row]
+        vc.descriptions = descriptions[indexPath.row]
+        
     }
-    */
+    
 
 }
