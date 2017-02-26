@@ -17,12 +17,12 @@ class EventListTableViewController: UITableViewController {
     var dates = [String]()
     var descriptions = [String]()
 
-    //for storing selected cell data
-    var location : String = ""
-    var image = UIImage(named: "hkust")
-    var name : String = ""
-    var date : String = ""
-    var descriptionForNextPage: String = ""
+//    //for storing selected cell data
+//    var location : String = ""
+//    var image = UIImage(named: "hkust")
+//    var name : String = ""
+//    var date : String = ""
+//    var descriptionForNextPage: String = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
