@@ -7,11 +7,13 @@ target 'TryWorkShop' do
 
   # Pods for TryWorkShop
     pod 'SKYKit'
+    pod 'SwiftyJSON'
 
   target 'TryWorkShopTests' do
     inherit! :search_paths
     # Pods for testing
     pod 'SKYKit'
+    pod 'SwiftyJSON'
   end
 
 end

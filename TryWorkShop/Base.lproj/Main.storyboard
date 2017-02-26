@@ -231,6 +231,9 @@
                                 <state key="normal" title="JOIN">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="joinPressed:" destination="F6S-oo-DhC" eventType="touchUpInside" id="o0o-Rk-kPR"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="Date     :" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oh7-Av-IS6">
                                 <rect key="frame" x="32" y="256" width="70" height="30"/>

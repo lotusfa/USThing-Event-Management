@@ -16,6 +16,7 @@ class EventListTableViewController: UITableViewController {
     var names = [String]()
     var dates = [String]()
     var descriptions = [String]()
+    var parti_ids = [SKYRecordID]()
 
 //    //for storing selected cell data
 //    var location : String = ""
@@ -128,6 +129,7 @@ class EventListTableViewController: UITableViewController {
                 self.names.append(event["name"] as! String)
                 self.dates.append(appendString)
                 self.descriptions.append(event["description"] as! String)
+                self.parti_ids.append(event.recordID)
                 
                 print ("Name: \(event["name"])")
                 //print ("Begin Time: \(event["beginTime"])")
@@ -192,6 +194,7 @@ class EventListTableViewController: UITableViewController {
         vc.dates = dates[indexPath.row]
         vc.locations = locations[indexPath.row]
         vc.descriptions = descriptions[indexPath.row]
+        vc.parti_id = self.parti_ids[indexPath.row]
         
     }
     
