@@ -15,7 +15,6 @@ class EventListTableViewCell: UITableViewCell {
     @IBOutlet weak var fee: UILabel!
     @IBOutlet weak var date: UILabel!
     @IBOutlet weak var location: UILabel!
-    @IBOutlet var whiteCardView: UIView!
 
     
     override func awakeFromNib() {
