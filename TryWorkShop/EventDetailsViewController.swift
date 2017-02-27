@@ -16,8 +16,9 @@ class EventDetailsViewController: UIViewController {
     var names : String?
     var dates : String?
     var descriptions : String?
-    var parti_id : SKYRecordID!
+    var eventRecord_id : SKYRecordID!
     var parti : JSON!
+    var myITSC = "kelvinITSC"
 
     @IBOutlet weak var eventDescription: UITextView!
     @IBOutlet weak var photo: UIImageView!
@@ -42,7 +43,8 @@ class EventDetailsViewController: UIViewController {
         print("\(date.text)")
         print("\(location.text)")
         print("\(eventDescription.text)")
-        
+        print("123")
+        print("\(eventRecord_id.recordName)")
         
     }
 
@@ -67,21 +69,52 @@ class EventDetailsViewController: UIViewController {
 //        }
         
         //retrieve participants and update it
-        let recordID = SKYRecordID(recordType: "event", name: parti_id.recordName)
-        print("\(parti_id.recordName)")
+        let recordID = SKYRecordID(recordType: "event", name: eventRecord_id.recordName)
+        print("\(eventRecord_id.recordName)")
         SKYContainer.default().publicCloudDatabase.fetchRecord(with: recordID) { (record, error) in
             if error != nil {
                 print ("error fetching todo: \(error)")
                 return
             }
             
-            let parti = record?.object(forKey: "participants") as! JSON
+            let eventParticipants = record?.object(forKey: "participants") as! NSDictionary
             
-            let updatedParti = parti //shld modify parti and store to updatedParti
+            let string1 = (eventParticipants.value(forKeyPath: "participants") as! String)
+            let string2 = self.myITSC
+            let string3 = "-"
+            let appendString = "\(string1)\(string3)\(string2)"
+
+            eventParticipants.setValue( "\(appendString)" , forKey: "participants")
             
-            let updatedRecord = SKYRecord(recordType: "event", name: self.parti_id.recordName)
-            updatedRecord?.setObject(updatedParti, forKey: "participants" as NSCopying!)
+            let jsonData = "{  \"participants\": \"\(appendString)\"}"
+            //let jsonData = "{\"participants\": \"-hnwongab\"}"
+            print(jsonData)
+            
+            let updatedParti = jsonData //shld modify parti and store to updatedParti
+            
+            /*
+            let updatedRecord = SKYRecord(recordType: "event", name: self.eventRecord_id.recordName)
+            updatedRecord?.setObject(<#T##object: Any!##Any!#>, forKey: "participants" as NSCopying!)
+            updatedRecord?.setObject(appendString, forKey: "participants" as NSCopying!)
             SKYContainer.default().publicCloudDatabase.save(updatedRecord, completion: nil)
+            */
+            
+            
+            print ("\(eventParticipants)")
+            let updatedRecord = SKYRecord(recordType: "event")
+            updatedRecord?.setObject( eventParticipants , forKey: "participants" as NSCopying!)
+            
+            let publicDB = SKYContainer.default().publicCloudDatabase
+            publicDB?.save(updatedRecord , completion: { (record, error) in
+                if error != nil {
+                    print ("error saving participants: \(error)")
+                    return
+                }
+                
+                print ("saved participants with record = \(record?.recordID)")
+            })
+            
+            print ("updated")
         }
         
     }

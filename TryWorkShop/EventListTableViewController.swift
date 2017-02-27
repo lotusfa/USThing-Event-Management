@@ -194,7 +194,7 @@ class EventListTableViewController: UITableViewController {
         vc.dates = dates[indexPath.row]
         vc.locations = locations[indexPath.row]
         vc.descriptions = descriptions[indexPath.row]
-        vc.parti_id = self.parti_ids[indexPath.row]
+        vc.eventRecord_id = self.parti_ids[indexPath.row]
         
     }
     
