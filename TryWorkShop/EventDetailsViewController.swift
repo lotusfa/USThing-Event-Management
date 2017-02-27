@@ -77,8 +77,8 @@ class EventDetailsViewController: UIViewController {
                 return
             }
             
+            //making "participants" record string
             let eventParticipants = record?.object(forKey: "participants") as! NSDictionary
-            
             let string1 = (eventParticipants.value(forKeyPath: "participants") as! String)
             let string2 = self.myITSC
             let string3 = "-"
@@ -86,11 +86,13 @@ class EventDetailsViewController: UIViewController {
 
             eventParticipants.setValue( "\(appendString)" , forKey: "participants")
             
+            /* 
+             making json data 
+             ie.{"participants": "-hnwongab-kelvinITSC"}
+             */
             let jsonData = "{  \"participants\": \"\(appendString)\"}"
-            //let jsonData = "{\"participants\": \"-hnwongab\"}"
             print(jsonData)
-            
-            let updatedParti = jsonData //shld modify parti and store to updatedParti
+            let updatedParti = jsonData //shld modify parti and
             
             /*
             let updatedRecord = SKYRecord(recordType: "event", name: self.eventRecord_id.recordName)
@@ -100,7 +102,7 @@ class EventDetailsViewController: UIViewController {
             */
             
             
-            print ("\(eventParticipants)")
+            //code from Skygear Doc
             let updatedRecord = SKYRecord(recordType: "event")
             updatedRecord?.setObject( eventParticipants , forKey: "participants" as NSCopying!)
             
@@ -113,8 +115,7 @@ class EventDetailsViewController: UIViewController {
                 
                 print ("saved participants with record = \(record?.recordID)")
             })
-            
-            print ("updated")
+
         }
         
     }
